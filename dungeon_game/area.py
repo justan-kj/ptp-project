@@ -1,4 +1,5 @@
 
+
 class Area:
     """The area class represents a single space the player move through. It has exits determining valid movement options"""
     def __init__(self):
