@@ -30,3 +30,16 @@ class TestDungeon(unittest.TestCase):
         self.assertEqual(len(self.dungeon.areas), rows)
         self.assertEqual(len(self.dungeon.areas[0]), cols)
         self.assertTrue(all_items_are_type(self.dungeon.areas, Area))
+
+    def test_pathing(self):
+        """Checks that the generate_path functions produces an expected path
+        :return: None
+        """
+        self.assertIsInstance(self.dungeon.generate_path((0,0)), Area)
+        rows, cols = self.size
+        for col in range(cols - 1):
+            self.assertTrue(self.dungeon.areas[0][col].exits["E"])
+            if col>0:
+                self.assertTrue(self.dungeon.areas[0][col].exits["W"])
+        self.assertTrue(self.dungeon.areas[0][cols - 1].exits["W"])
+
