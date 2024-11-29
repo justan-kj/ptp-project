@@ -6,6 +6,9 @@ class Choice:
         self.prompt = prompt
         self.value = value
 
+    def __repr__(self):
+        return self.prompt
+
 
 class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
