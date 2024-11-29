@@ -4,7 +4,7 @@ class Player:
     """
     The Player class represents the entity controlled by the player. It stores the state of the player such as hp, position and name.
     """
-    def __init__(self, name, starting_position=(0,0), starting_hp=100):
+    def __init__(self, name, starting_position, starting_hp=100):
         """
         Initialises the player.
         :param name: player name as a string
