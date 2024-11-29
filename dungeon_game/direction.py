@@ -33,3 +33,25 @@ class Direction(Enum):
 
     def __repr__(self):
         return self.value[1]
+
+class Position:
+    def __init__(self, row, col, max_rows, max_cols):
+        self.row = row
+        self.col = col
+        self.max_row = max_rows
+        self.max_col = max_cols
+
+    def apply_offset(self, a_direction, magnitude = 1):
+        new_row = self.row + a_direction.offset[0] * magnitude
+        new_col = self.col + a_direction.offset[1] * magnitude
+        if 0 <= new_row < self.max_row and 0 <= new_col < self.max_col:
+            return False
+        self.row = self.row + a_direction.offset[0] * magnitude
+        self.col = self.col + a_direction.offset[1] * magnitude
+        return self.row, self.col
+
+    def get_coords(self):
+        return self.row, self.col
+
+
+
