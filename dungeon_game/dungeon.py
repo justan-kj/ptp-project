@@ -23,15 +23,15 @@ class Dungeon:
         """get_area returns an area from self.areas based on its row and column."""
         return self.areas[row][col]
 
-    def get_adjacent_areas(self, target_row,target_col):
+    def get_adjacent_areas(self, area_position):
         """get_adjacent_areas returns the adjacent areas of a target area contained in self.areas. the target area is identified by its row and column."""
         adjacent_areas = {}
         for a_dir in Direction:
-            new_row,new_col = target_row + a_dir.offset[0], target_col + a_dir.offset[1]
+            new_row,new_col = area_position.offset(a_dir, False)
             if new_row < 0 or new_row >= self.size[0] or new_col < 0 or new_col >= self.size[1]:
                 adjacent_areas[a_dir] = False
                 continue
-            if check_path(self.get_area(target_row,target_col), self.get_area(new_row, new_col)):
+            if check_path(self.get_area(area_position), self.get_area(new_row, new_col)):
                 adjacent_areas[a_dir] = self.get_area(new_row, new_col)
             else:
                 adjacent_areas[a_dir] = False

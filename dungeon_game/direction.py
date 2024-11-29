@@ -41,9 +41,12 @@ class Position:
         self.max_row = max_rows
         self.max_col = max_cols
 
-    def apply_offset(self, a_direction, magnitude = 1):
-        self.row = self.row + a_direction.offset[0] * magnitude
-        self.col = self.col + a_direction.offset[1] * magnitude
+    def apply_offset(self, a_direction,  apply_to_self = True,magnitude = 1):
+        new_row = self.row + a_direction.offset[0] * magnitude
+        new_col = self.col + a_direction.offset[1] * magnitude
+        if apply_to_self:
+            self.row = new_row
+            self.col = new_col
         return self.row, self.col
 
     def get_coords(self):
