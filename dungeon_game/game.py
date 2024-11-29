@@ -22,16 +22,17 @@ class Game:
 
     def move_player(self):
         current_row, current_column = self.player.position
-        open_paths = self.dungeon.get_adjacent_paths(current_row, current_column)
+        open_paths = self.dungeon.get_adjacent_areas(current_row, current_column)
         choices = []
         for key in open_paths:
             if open_paths[key]:
-                prompt = f"Go {key}"
+                prompt = f"Go {key.name}"
                 choices.append(Choice(prompt,key))
         choice = self.ui.get_choice(choices)
-        offsets = {"N":(1,0),"S":(-1,0),"E":(0,-1),"W":(1,0)}
-        self.player.position = (current_row+offsets[choice][0],current_column+offsets[choice][1])
-        self.ui.update(f"You have moved {choice}")
+        self.player.position = (current_row+choice.value.offset[0],current_column+choice.value.offset[1])
+        self.ui.update(f"You have moved {choice.value.name}wards")
+
+
 
 
 
