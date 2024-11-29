@@ -15,6 +15,6 @@ class Area:
         self.col = col
 
     def __repr__(self):
-        return f"({self.row}, {self.col})"
+        return f"R{self.row}C{self.col})"
 
 
