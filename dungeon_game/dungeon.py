@@ -1,26 +1,7 @@
 
 from dungeon_game.area import Area
-
-def bridge_areas(area1,area2):
-    """
-    The bridge_areas function enables an exit for area1 and the corresponding exit for area2
-    """
-    area1.exits["E"] = True
-    area2.exits["W"] = True
-    return area2
-
-def check_path(area1, area2):
-    """
-    The check_path function checks whether there are linked exits between area1 and area2
-    """
-    pairs = [("N", "S"), ("S", "N"), ("E", "W"), ("W", "E")]
-    for pair in pairs:
-        if area1.exits[pair[0]] and area2.exits[pair[1]]:
-            return True
-    return False
-
-
-class Dungeon():
+from dungeon_game.maze_builder import MazeBuilder
+class Dungeon:
     """The Dungeon class manages the structure and relationships of areas in the game map"""
     def __init__(self, size):
         """Initializes the dungeon.
@@ -28,17 +9,7 @@ class Dungeon():
         :return: None
         """
         self.size = size
-        rows, cols = size
-        self.areas = [[Area() for _ in range(cols)] for _ in range(rows)]
-
-    def generate_path(self, starting_point):
-        start_row,start_col = starting_point
-        rows, cols = self.size
-        current_col = start_col
-        while current_col < cols - 1:
-            bridge_areas(self.areas[start_row][current_col], self.areas[start_row][current_col + 1])
-            current_col += 1
-        return self.areas[start_row][current_col]
+        self.areas = MazeBuilder(size).build
 
     def get_area(self, row,col):
         """get_area returns an area from self.areas based on its row and column."""
