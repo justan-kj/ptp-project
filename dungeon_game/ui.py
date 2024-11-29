@@ -44,11 +44,13 @@ class UserInterface:
         if not selection is None:
             self.log.append(choices[selection].prompt)
             return choices[selection].value
+
         while True:
-            player_selection = input("Select a choice: ")
+
             try:
-                if int(player_selection) - 1 in range(len(choices)):
-                    self.log.append(choices[player_selection].prompt)
+                player_selection = int(input("Select a choice: "))
+                if player_selection  <= len(choices):
+                    self.log.append(choices[player_selection - 1].prompt)
                     return choices[player_selection].value
             except:
                 print("Invalid choice")
