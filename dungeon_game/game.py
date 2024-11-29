@@ -1,4 +1,6 @@
 import random
+
+from dungeon_game.direction import Position
 from dungeon_game.dungeon import Dungeon
 from dungeon_game.player import Player
 from dungeon_game.ui import UserInterface, Choice
@@ -12,7 +14,8 @@ class Game:
     def __init__(self, name, size=(5,5), seed=generate_seed()):
         self.seed = seed
         self.dungeon = Dungeon(size)
-        self.player = Player(name)
+        starting_pos = Position(0,0,size[0],size[1])
+        self.player = Player(name, starting_pos)
         self.ui = UserInterface()
 
     def start(self):
@@ -21,16 +24,15 @@ class Game:
             self.move_player()
 
     def move_player(self):
-        current_row, current_column = self.player.position
-        open_paths = self.dungeon.get_adjacent_areas(current_row, current_column)
+        open_paths = self.dungeon.get_adjacent_areas(self.player.position)
         choices = []
         for key in open_paths:
             if open_paths[key]:
-                prompt = f"Go {key.name}"
+                prompt = f"Head {key.name}wards"
                 choices.append(Choice(prompt,key))
-        choice = self.ui.get_choice(choices)
-        self.player.position = (current_row+choice.value.offset[0],current_column+choice.value.offset[1])
-        self.ui.update(f"You have moved {choice.value.name}wards")
+        chosen_direction = self.ui.get_choice(choices)
+        self.player.position.apply_offset(chosen_direction)
+        self.ui.update(f"You have moved {chosen_direction.name}wards")
 
 
 

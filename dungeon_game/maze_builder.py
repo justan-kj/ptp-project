@@ -1,6 +1,6 @@
 from dungeon_game.area import Area
 import random
-from dungeon_game.direction import Direction
+from dungeon_game.direction import Direction, Position
 
 
 class MazeBuilder:
@@ -23,7 +23,7 @@ class MazeBuilder:
         for row in range(self.rows):
             new_row = []
             for col in range(self.cols):
-                new_row.append(Area(row,col))
+                new_row.append(Area(Position(row,col,self.rows,self.cols)))
             new_maze.append(new_row)
         self.maze = new_maze
         return new_maze
