@@ -44,8 +44,7 @@ class TestDungeon(unittest.TestCase):
         """Checks that get_adjacent_areas returns correctly linked areas
         :return: None
         """
-        start_row, start_col = 0, 0
-        adjacent = self.dungeon.get_adjacent_areas(start_row, start_col)
+        adjacent = self.dungeon.get_adjacent_areas(Position(0,0,4,5))
 
         # The East area should be valid
         self.assertIsInstance(adjacent[Direction.EAST], Area)
