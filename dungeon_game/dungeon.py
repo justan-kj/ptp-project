@@ -17,8 +17,9 @@ class Dungeon:
         :return: None
         """
         self.size = size
+        rows,cols = size
         self.areas = MazeBuilder(size).build()
-        self.endpoint = (size[0]-1,size[1]-1)
+        self.endpoint = Position(size[0]-1,size[1]-1,rows,cols)
     def get_area(self, position):
         """get_area returns an area from self.areas based on its row and column."""
         return self.areas[position.row][position.col]
