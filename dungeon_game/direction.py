@@ -52,5 +52,8 @@ class Position:
     def get_coords(self):
         return self.row, self.col
 
+    def equals(self,position2):
+        return self.get_coords() == position2.get_coords()
+
 
 
