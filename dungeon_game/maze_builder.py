@@ -7,6 +7,7 @@ class MazeBuilder:
     def __init__(self, size, seed):
         self.rows, self.cols = size
         self.maze = None
+        self.seed = seed
 
     def build(self):
         self.build_empty_maze()
@@ -41,7 +42,9 @@ class MazeBuilder:
                 if row_id < rows - 1:
                     passages.append([self.maze[row_id][col_id], self.maze[row_id+1][col_id], Direction.NORTH])
 
+        random.seed(self.seed)
         random.shuffle(passages)
+
         while len(passages) > 0:
             current_passage = passages.pop()
             set1 = None
