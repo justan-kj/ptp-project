@@ -27,7 +27,7 @@ class Game:
 
         size = (5,5)
         self.seed = generate_seed()
-        self.dungeon = Dungeon(size)
+        self.dungeon = Dungeon(size, self.seed)
         starting_pos = Position(0, 0, size[0], size[1])
         self.player = Player(player_name, starting_pos)
         self.ui = UserInterface()

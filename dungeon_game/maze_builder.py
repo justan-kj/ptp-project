@@ -4,7 +4,7 @@ from dungeon_game.direction import Direction, Position
 
 
 class MazeBuilder:
-    def __init__(self, size):
+    def __init__(self, size, seed):
         self.rows, self.cols = size
         self.maze = None
 
