@@ -28,7 +28,7 @@ class Dungeon:
         adjacent_areas = {}
         for a_dir in Direction:
             new_pos = area_position.apply_offset(a_dir, False)
-            new_row,new_col = new_pos.coords
+            new_row,new_col = new_pos.get_coords()
             if new_row < 0 or new_row >= self.size[0] or new_col < 0 or new_col >= self.size[1]:
                 adjacent_areas[a_dir] = False
                 continue
