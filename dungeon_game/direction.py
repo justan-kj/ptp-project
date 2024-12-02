@@ -35,7 +35,7 @@ class Direction(Enum):
         return self.value[1]
 
 class Position:
-    def __init__(self, row, col, max_rows, max_cols):
+    def __init__(self, row, col, max_rows=100, max_cols=100):
         self.row = row
         self.col = col
         self.max_row = max_rows
