@@ -31,16 +31,16 @@ class MazeBuilder:
 
     def generate_path(self):
         rows = len(self.maze)
-        cols = len(self.maze)
+        cols = len(self.maze[0])
         passages = []
-        kruskal_sets = [{}]
+        kruskal_sets = []
 
         for row_id,row in enumerate(self.maze):
             for col_id,ele in enumerate(row):
                 if col_id < cols - 1:
                     passages.append([self.maze[row_id][col_id], self.maze[row_id][col_id +1], Direction.EAST])
                 if row_id < rows - 1:
-                    passages.append([self.maze[row_id][col_id], self.maze[row_id+1][col_id], Direction.NORTH])
+                    passages.append([self.maze[row_id][col_id], self.maze[row_id+1][col_id], Direction.SOUTH])
 
         random.seed(self.seed)
         random.shuffle(passages)
