@@ -19,6 +19,7 @@ class Game:
         self.player = None
         self.seed = 0
         self.ui = None
+        self.moves = []
         self.initialize(name)
 
     def initialize(self,player_name=None):
@@ -52,11 +53,18 @@ class Game:
     def move_player(self):
         open_paths = self.dungeon.get_adjacent_areas(self.player.position)
         choices = []
+        back_direction = None
         for key in open_paths:
+            if len(self.moves) and key == self.moves[-1].opposite:
+                back_direction = key
+                continue
             if open_paths[key]:
                 prompt = f"Head {key.name}wards"
                 choices.append(Choice(prompt,key))
+        if back_direction:
+            choices.append(Choice("Go back", back_direction))
         chosen_direction = self.ui.get_choice(choices)
+        self.moves.append(chosen_direction)
         self.player.position.apply_offset(chosen_direction)
         self.ui.update(f"You have moved {chosen_direction.name}wards")
 
