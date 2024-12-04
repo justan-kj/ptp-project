@@ -5,7 +5,7 @@ from dungeon_game.direction import Direction, Position
 
 def check_path(area1, area2):
     for direction in Direction:
-        if area1.exits[direction] == area2.exits[direction.opposite]:
+        if area1.exits[direction] and area1.exits[direction] == area2.exits[direction.opposite]:
             return True
     return False
 
