@@ -44,13 +44,13 @@ class UserInterface:
         if is_first_move:
             first_move_modifier = 1
         if len(choices) + first_move_modifier == 1:
-            flavor_text = f"The path leads to a dead end, you have no choice but to turn back."
+            flavor_text = f"You have hit a dead end, there is no choice but to turn back."
         elif len(choices) + first_move_modifier == 2:
-            flavor_text = f"The corridor continues straight towards the {choices[0].value}."
+            flavor_text = f"The path continues towards the {choices[0].value}."
         elif len(choices) + first_move_modifier == 3:
             flavor_text = f"You reach a fork, with one path heading {choices[0].value}, and the other towards the {choices[1].value}"
         else:
-            flavor_text = f"You arrive at a crossroads, the paths diverging in all directions."
+            flavor_text = f"You arrive at a crossroads with paths diverging in all directions."
         return flavor_text
 
     def get_player_input(self, choices):

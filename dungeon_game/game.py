@@ -4,10 +4,6 @@ from dungeon_game.direction import Position
 from dungeon_game.dungeon import Dungeon
 from dungeon_game.player import Player
 from dungeon_game.ui import UserInterface, Choice
-import os
-
-def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
 
 def generate_seed():
     output = random.randint(0,2**32)
@@ -64,15 +60,15 @@ class Game:
                 prompt = f"Move {key.name}"
                 choices.append(Choice(prompt,key))
         if back_direction:
-            choices.append(Choice("Go back", back_direction))
+            choices.append(Choice(f"Go back ({back_direction.name})", back_direction))
 
         chosen_direction = self.ui.get_choice(choices,is_first_move)
         self.moves.append(chosen_direction)
-
+        self.ui.update(f"You move towards the {chosen_direction.name}")
         event = self.dungeon.get_area(self.player.position).exits[chosen_direction]
         event.activate()
         self.player.position.apply_offset(chosen_direction)
-        self.ui.update(f"You have moved {chosen_direction.name}wards")
+
 
 
 
