@@ -7,7 +7,8 @@ from dungeon_game.event import BlankEvent
 def generate_event():
     events = [BlankEvent]
     weights = [100]
-    return random.choices(events,weights=weights, k=1)[0]
+    picked_class = random.choices(events,weights=weights, k=1)[0]
+    return picked_class()
 
 class MazeBuilder:
     def __init__(self, size, seed):
