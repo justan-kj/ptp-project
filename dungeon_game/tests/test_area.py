@@ -7,7 +7,7 @@ class TestArea(unittest.TestCase):
         """Sets up a test area
         :return: None
         """
-        self.area = Area(Position(0,0,1,1))
+        self.area = Area(Position(1,2,10,10))
 
     def test_init(self):
         """Checks that initialised values are as expected
@@ -17,3 +17,5 @@ class TestArea(unittest.TestCase):
         for key in Direction:
             self.assertIn(key,self.area.exits)
             self.assertFalse(self.area.exits[key])
+        self.assertEqual(self.area.row, 1)
+        self.assertEqual(self.area.col, 2)
