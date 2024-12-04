@@ -55,5 +55,7 @@ class Position:
     def equals(self,position2):
         return self.get_coords() == position2.get_coords()
 
+    def __repr__(self):
+        return f"{self.row},{self.col}"
 
 
