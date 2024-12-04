@@ -55,16 +55,18 @@ class Game:
         open_paths = self.dungeon.get_adjacent_areas(self.player.position)
         choices = []
         back_direction = None
+        is_first_move = len(self.moves) == 0
         for key in open_paths:
-            if len(self.moves) and key == self.moves[-1].opposite:
+            if not is_first_move and key == self.moves[-1].opposite:
                 back_direction = key
                 continue
             if open_paths[key]:
-                prompt = f"Move {key.name}wards"
+                prompt = f"Move {key.name}"
                 choices.append(Choice(prompt,key))
         if back_direction:
             choices.append(Choice("Go back", back_direction))
-        chosen_direction = self.ui.get_choice(choices)
+
+        chosen_direction = self.ui.get_choice(choices,is_first_move)
         self.moves.append(chosen_direction)
         self.player.position.apply_offset(chosen_direction)
         self.ui.update(f"You have moved {chosen_direction.name}wards")
