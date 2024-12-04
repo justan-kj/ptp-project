@@ -9,7 +9,6 @@ class Choice:
     def __repr__(self):
         return self.prompt
 
-
 class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
      interacts with"""
@@ -28,13 +27,19 @@ class UserInterface:
         self.log.append(message)
         print(message)
 
-    def get_choice(self, choices, is_first_move, selection=None):
+    def get_choice(self, choices, is_first_move):
         """
         Prints a list of choices sequentially and prompts a player to select one of them
         returning the Choice's value if the selection is succesful
         :param choices: The choices to be selected from
         :return: The value of the selected Choice
         """
+        flavor_text = self.get_flavor_text(choices, is_first_move)
+        print(flavor_text)
+        self.display_choices(choices)
+        return self.get_player_input(choices)
+
+    def get_flavor_text(self,choices, is_first_move):
         first_move_modifier = 0
         if is_first_move:
             first_move_modifier = 1
@@ -46,26 +51,27 @@ class UserInterface:
             flavor_text = f"You reach a fork, with one path heading {choices[0].value}, and the other towards the {choices[1].value}"
         else:
             flavor_text = f"You arrive at a crossroads, the paths diverging in all directions."
+        return flavor_text
 
-        print(flavor_text)
+    def get_player_input(self, choices):
+        while True:
+            try:
+                chosen_num = int(input("Select a choice: ")) - 1
+                if 0 <= chosen_num < len(choices):
+                    choice = choices[chosen_num]
+                    self.log.append(choice.prompt)
+                    return choice.value
+                else:
+                    print(f"Invalid choice, please select a number between 1 and {len(choices)}.")
+            except ValueError:
+                print("Invalid choice, please select a number.")
+
+    def display_choices(self, choices):
         choice_num = 1
         for choice in choices:
             print(f"{choice_num}) {choice.prompt}")
             self.log.append(choice.prompt)
-            choice_num+=1
-
-        if not selection is None:
-            self.log.append(choices[selection].prompt)
-            return choices[selection].value
-
-        while True:
-            try:
-                player_selection = int(input("Select a choice: "))
-                if player_selection  <= len(choices):
-                    self.log.append(choices[player_selection - 1].prompt)
-                    return choices[player_selection-1].value
-            except:
-                print("Invalid choice")
+            choice_num += 1
 
 
 
