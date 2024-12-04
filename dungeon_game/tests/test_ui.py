@@ -1,5 +1,8 @@
 import unittest
+
+from dungeon_game.direction import Direction
 from dungeon_game.ui import UserInterface, Choice
+from unittest.mock import patch
 
 class TestUi(unittest.TestCase):
     def setUp(self):
@@ -7,6 +10,11 @@ class TestUi(unittest.TestCase):
         :return: None
         """
         self.ui = UserInterface()
+        self.choices = [
+            Choice("Head North",Direction.NORTH),
+            Choice("Head South", Direction.SOUTH),
+            Choice("Go Back", Direction.WEST)
+        ]
         pass
 
     def testInit(self):
@@ -27,10 +35,20 @@ class TestUi(unittest.TestCase):
         self.assertEqual(len(self.ui.log), 2)
         self.assertEqual(self.ui.log[1], "Test message 2")
 
-    def testChoices(self):
-        self.ui.log = []
-        choices = [Choice("Test choice 1", "val2"),
-                   Choice("Test choice 2", "val2"),
-                   Choice("Test choice 3", "val2")]
-        self.assertEqual(self.ui.get_choice(choices,1),"val2")
-        self.assertEqual(self.ui.log[-1], "Test choice 2")
+
+    def test_get_user_input(self):
+        with patch('builtins.input', return_value=2):
+            with patch('builtins.print') as mock_print:
+                selected_value = self.ui.get_player_input(self.choices)
+                self.assertEqual(selected_value, Direction.SOUTH)
+
+    @patch('builtins.print')
+    def test_display_choices(self, mock_print):
+        self.ui.display_choices(self.choices)
+        # Check if print was called correct number of times with correct arguments
+        expected_calls = [
+            unittest.mock.call("1) Head North"),
+            unittest.mock.call("2) Head South"),
+            unittest.mock.call("3) Go Back")
+        ]
+        mock_print.assert_has_calls(expected_calls, any_order=False)
