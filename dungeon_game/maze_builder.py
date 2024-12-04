@@ -9,17 +9,17 @@ class MazeBuilder:
         self.maze = None
         self.seed = seed
 
-    def build(self):
-        self.build_empty_maze()
-        self.generate_path()
+    def build_maze(self):
+        self.initialize_maze()
+        self.generate_maze_path()
         return self.maze
 
-    def bridge_areas(self, area1, area2, direction):
+    def link_areas(self, area1, area2, direction):
         area1.exits[direction] = True
         area2.exits[direction.opposite] = True
         return area2
 
-    def build_empty_maze(self):
+    def initialize_maze(self):
         new_maze = []
         for row in range(self.rows):
             new_row = []
@@ -29,7 +29,7 @@ class MazeBuilder:
         self.maze = new_maze
         return new_maze
 
-    def generate_path(self):
+    def generate_maze_path(self):
         rows = len(self.maze)
         cols = len(self.maze[0])
         passages = []
@@ -58,7 +58,7 @@ class MazeBuilder:
 
             if set1 == set2 and not set1 is None:
                 continue
-            self.bridge_areas(current_passage[0],current_passage[1],current_passage[2])
+            self.link_areas(current_passage[0], current_passage[1], current_passage[2])
             if set1 is None and set2 is None:
                 kruskal_sets.append({current_passage[0],current_passage[1]})
 

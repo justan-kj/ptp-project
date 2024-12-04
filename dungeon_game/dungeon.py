@@ -18,7 +18,7 @@ class Dungeon:
         """
         self.size = size
         rows,cols = size
-        self.areas = MazeBuilder(size,seed).build()
+        self.areas = MazeBuilder(size,seed).build_maze()
         self.endpoint = Position(size[0]-1,size[1]-1,rows,cols)
 
     def get_area(self, position):
