@@ -14,6 +14,7 @@ class BlankEvent(Event):
         self.description = "Nothing eventful happens along the way."
 
     def activate(self):
+        print(self.description)
         return self.description
 
 class TrapEvent(Event):
@@ -23,7 +24,9 @@ class TrapEvent(Event):
 
     def activate(self):
         damage = random.randint(1,4)
+        print(self.description )
         self.player.modify_hp(-damage)
+        print(f"You took {damage} damage!")
         return self.description + f"You took {damage} damage!"
 
 
