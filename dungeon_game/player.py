@@ -16,4 +16,10 @@ class Player:
         self.max_hp = starting_hp
         self.current_hp = starting_hp
 
+    def modify_hp(self,amount):
+        self.current_hp += amount
+        if self.current_hp > self.max_hp:
+            self.current_hp = self.max_hp
+        print(f"You now have {self.current_hp}/{self.max_hp} HP")
+
 
