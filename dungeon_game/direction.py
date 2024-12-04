@@ -47,7 +47,7 @@ class Position:
         if apply_to_self:
             self.row = new_row
             self.col = new_col
-        return Position(self.row, self.col, self.max_row,self.max_col)
+        return Position(new_row, new_col, self.max_row,self.max_col)
 
     def get_coords(self):
         return self.row, self.col
