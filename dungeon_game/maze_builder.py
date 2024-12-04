@@ -1,7 +1,8 @@
 from dungeon_game.area import Area
 import random
 from dungeon_game.direction import Direction, Position
-from dungeon_game.event import BlankEvent, TrapEvent
+from dungeon_game.event import BlankEvent, TrapEvent, PuzzleEvent, RestEvent
+
 
 class MazeBuilder:
     def __init__(self, size, player):
@@ -15,8 +16,8 @@ class MazeBuilder:
         return self.maze
 
     def generate_event(self):
-        events = [BlankEvent,TrapEvent]
-        weights = [100,30]
+        events = [BlankEvent,TrapEvent, RestEvent, PuzzleEvent]
+        weights = [20,10,10,10]
         picked_class = random.choices(events, weights=weights, k=1)[0]
         return picked_class(self.player)
 
