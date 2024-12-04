@@ -20,7 +20,8 @@ class TestDungeon(unittest.TestCase):
         :return: None
         """
         self.size = (4,5)
-        self.dungeon = Dungeon(self.size)
+        self.seed = 1050066143
+        self.dungeon = Dungeon(self.size, self.seed)
 
     def test_init(self):
         """Checks that initialised values are as expected
@@ -46,7 +47,6 @@ class TestDungeon(unittest.TestCase):
         """
         adjacent = self.dungeon.get_adjacent_areas(Position(0,0,4,5))
 
-"""     Implement after seed function
         # The East area should be valid
         self.assertIsInstance(adjacent[Direction.EAST], Area)
         self.assertIsInstance(adjacent[Direction.SOUTH], Area)
@@ -54,4 +54,3 @@ class TestDungeon(unittest.TestCase):
         # The other directions should not be connected yet
         self.assertFalse(adjacent[Direction.NORTH])
         self.assertFalse(adjacent[Direction.WEST])
-"""
