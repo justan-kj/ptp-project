@@ -1,6 +1,4 @@
 import unittest
-from tkinter.tix import INTEGER
-
 from dungeon_game.dungeon import Dungeon
 from dungeon_game.game import Game
 from dungeon_game.player import Player
