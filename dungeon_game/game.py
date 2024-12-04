@@ -28,9 +28,9 @@ class Game:
 
         size = (5,5)
         self.seed = generate_seed()
-        self.dungeon = Dungeon(size, self.seed)
         starting_pos = Position(0, 0, size[0], size[1])
         self.player = Player(player_name, starting_pos)
+        self.dungeon = Dungeon(size, self.player)
         self.ui = UserInterface()
 
     def start(self):
@@ -68,6 +68,9 @@ class Game:
 
         chosen_direction = self.ui.get_choice(choices,is_first_move)
         self.moves.append(chosen_direction)
+
+        event = self.dungeon.get_area(self.player.position).exits[chosen_direction]
+        event.activate()
         self.player.position.apply_offset(chosen_direction)
         self.ui.update(f"You have moved {chosen_direction.name}wards")
 
