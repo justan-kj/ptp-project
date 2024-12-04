@@ -58,6 +58,7 @@ class Area:
         }
         self.row = position.row
         self.col = position.col
+        self.items = []
 
     def __repr__(self):
         """
