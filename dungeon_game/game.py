@@ -43,10 +43,11 @@ class Game:
     def end_game(self,victory = True):
         if victory:
             print("Congratulations! You beat the game.")
-            new_game_check = input("Play again? Y/N")
+            new_game_check = input("Play again? Y/[N]")
             if new_game_check.upper() == "Y":
                 cls()
                 self.initialize()
+            exit()
 
 
 
@@ -59,7 +60,7 @@ class Game:
                 back_direction = key
                 continue
             if open_paths[key]:
-                prompt = f"Head {key.name}wards"
+                prompt = f"Move {key.name}wards"
                 choices.append(Choice(prompt,key))
         if back_direction:
             choices.append(Choice("Go back", back_direction))
