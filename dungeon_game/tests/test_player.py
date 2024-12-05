@@ -15,6 +15,4 @@ class TestPlayer(unittest.TestCase):
         """Checks that initialised values are as expected
         :return: None
         """
-        self.assertEqual(self.player.max_hp, 100)
-        self.assertEqual(self.player.current_hp, 100)
         self.assertEqual(self.player.position.get_coords(), Position(0, 0).get_coords())

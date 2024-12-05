@@ -3,7 +3,7 @@ import unittest
 from dungeon_game.area import Area
 from dungeon_game.direction import Position, Direction
 from dungeon_game.game import GameContext
-from dungeon_game.maze_builder import MazeBuilder
+from dungeon_game.maze_builder import MazeBuilder, link_areas
 
 
 class TestMazeBuilder(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestMazeBuilder(unittest.TestCase):
     def test_bridge_areas(self):
         area1 = Area(Position(2, 3))
         area2 = Area(Position(2, 4))
-        self.builder.link_areas(area1, area2, Direction.EAST)
+        link_areas(area1, area2, Direction.EAST)
 
         self.assertTrue(area1.exits[Direction.EAST])
         self.assertTrue(area2.exits[Direction.WEST])
