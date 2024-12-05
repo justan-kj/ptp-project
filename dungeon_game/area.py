@@ -39,7 +39,7 @@ def get_symbol(exits):
         value += 10
     if exits[Direction.SOUTH]:
         value += 1
-    return f"{value:>04}"
+    return  char_map[f"{value:>04}"]
 
 
 class Area:
@@ -67,5 +67,4 @@ class Area:
         Returns the str representation of the area depending on its exits.
         :return: A character from `char_map` showing the exits.
         """
-        code = get_symbol(self.exits)
-        return char_map[code]
+        return  get_symbol(self.exits)
