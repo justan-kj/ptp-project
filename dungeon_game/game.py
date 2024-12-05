@@ -24,7 +24,7 @@ class GameContext:
         self.seed = seed
         self.game = Game(self)
         self.dungeon = Dungeon((5,5),self)
-        self.player = Player(self)
+        self.player = Player(Position(0,0))
         self.ui = UserInterface(self)
 
 
