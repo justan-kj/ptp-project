@@ -1,6 +1,7 @@
 import unittest
 from dungeon_game.event import BlankEvent
 from dungeon_game.direction import Direction, Position
+from dungeon_game.player import Player
 
 
 class TestBlankEvent(unittest.TestCase):
@@ -8,7 +9,8 @@ class TestBlankEvent(unittest.TestCase):
         """Sets up a test area
         :return: None
         """
-        self.event = BlankEvent()
+        self.player = Player(Position(0, 0))
+        self.event = BlankEvent(self.player)
 
     def test_init(self):
         """Checks that initialised values are as expected
