@@ -31,22 +31,40 @@ class UserInterface:
         self.log.append(message)
         print(message)
 
-    def get_choice(self, choices, is_first_move):
+    def get_choice(self, choices, moves):
         """
         Prints a list of choices sequentially and prompts a player to select one of them
         returning the Choice's value if the selection is succesful
         :param choices: The choices to be selected from
         :return: The value of the selected Choice
         """
-        flavor_text = self.get_flavor_text(choices, is_first_move)
+        flavor_text = self.get_flavor_text(choices, moves)
         print(flavor_text)
         self.display_choices(choices)
-        return self.get_player_input(choices)
+        chosen_direction = self.get_player_input(choices)
+        self.update(f"You move towards the {chosen_direction.name}")
+        return chosen_direction
 
-    def get_flavor_text(self, choices, is_first_move):
-        first_move_modifier = 0
-        if is_first_move:
-            first_move_modifier = 1
+
+    def get_movement_choices(self, moves, open_paths):
+        choices = []
+        back_direction = None
+        for key in open_paths:
+            if len(moves) and key == moves[-1].opposite:
+                back_direction = key
+                continue
+            if open_paths[key]:
+                prompt = f"Move {key.name}"
+                choices.append(Choice(prompt, key))
+        if back_direction:
+            choices.append(Choice(f"Go back ({back_direction.name})", back_direction))
+        return choices
+
+
+    def get_flavor_text(self, choices, moves):
+        first_move_modifier = 1
+        if len(moves):
+            first_move_modifier = 0
         if len(choices) + first_move_modifier == 1:
             flavor_text = f"You have hit a dead end, there is no choice but to turn back."
         elif len(choices) + first_move_modifier == 2:

@@ -11,7 +11,15 @@ def generate_seed():
     return output
 
 class GameContext:
-    def __init__(self, seed=generate_seed()):
+    def __init__(self):
+        self.seed = 0
+        self.game = None
+        self.dungeon = None
+        self.player = None
+        self.ui = None
+
+    def initialize(self,seed=generate_seed()):
+        self.seed = seed
         self.game = Game(self)
         self.dungeon = Dungeon((5,5),self)
         self.player = Player(self)
@@ -24,11 +32,11 @@ class Game:
         self.context = context
 
     def start(self):
-        self.ui.update(
+        self.context.ui.update(
             f"You arrive in the dungeon, embarking in search of a legendary treasure.")
         while True:
             self.move_player()
-            if self.player.position.equals(self.dungeon.endpoint):
+            if self.context.player.position.equals(self.context.dungeon.endpoint):
                 break
 
     def end_game(self, victory=True):
@@ -36,27 +44,15 @@ class Game:
             print("Congratulations! You beat the game.")
             new_game_check = input("Play again? Y/[N]")
             if new_game_check.upper() == "Y":
-                self.initialize()
+                self.context.initialize()
             exit()
 
     def move_player(self):
-        open_paths = self.dungeon.get_adjacent_areas(self.player.position)
-        choices = []
-        back_direction = None
+        open_paths = self.context.dungeon.get_adjacent_areas(self.context.player.position)
         is_first_move = len(self.moves) == 0
-        for key in open_paths:
-            if not is_first_move and key == self.moves[-1].opposite:
-                back_direction = key
-                continue
-            if open_paths[key]:
-                prompt = f"Move {key.name}"
-                choices.append(Choice(prompt, key))
-        if back_direction:
-            choices.append(Choice(f"Go back ({back_direction.name})", back_direction))
-
-        chosen_direction = self.ui.get_choice(choices, is_first_move)
+        choices = self.context.ui.get_movement_choices(self.moves, open_paths)
+        chosen_direction = self.context.ui.get_choice(choices, is_first_move)
         self.moves.append(chosen_direction)
-        self.ui.update(f"You move towards the {chosen_direction.name}")
-        event = self.dungeon.get_area(self.player.position).exits[chosen_direction]
+        event = self.context.dungeon.get_area(self.context.player.position).exits[chosen_direction]
         event.activate()
-        self.player.position.apply_offset(chosen_direction)
+        self.context.player.position.apply_offset(chosen_direction)
