@@ -20,20 +20,17 @@ class Game:
         self.moves = []
         self.initialize(name)
 
-    def initialize(self, player_name=None):
-        if player_name is None:
-            player_name = input("Welcome to Adventure world, please enter your character's name: ")
-
+    def initialize(self):
         size = (5, 5)
         self.seed = generate_seed()
         starting_pos = Position(0, 0, size[0], size[1])
-        self.player = Player(player_name, starting_pos)
+        self.player = Player(starting_pos)
         self.dungeon = Dungeon(size, self.player)
         self.ui = UserInterface()
 
     def start(self):
         self.ui.update(
-            f"The hero {self.player.name} arrives in the dungeon, embarking in search of a legendary treasure.")
+            f"You arrive in the dungeon, embarking in search of a legendary treasure.")
         while True:
             self.move_player()
             if self.player.position.equals(self.dungeon.endpoint):
