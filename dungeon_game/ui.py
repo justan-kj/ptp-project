@@ -31,7 +31,7 @@ class UserInterface:
         self.log.append(message)
         print(message)
 
-    def get_choice(self, choices, moves):
+    def prompt_player_movement(self, choices, moves):
         """
         Prints a list of choices sequentially and prompts a player to select one of them
         returning the Choice's value if the selection is succesful

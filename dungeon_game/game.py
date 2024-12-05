@@ -51,8 +51,7 @@ class Game:
 
     def move_player(self):
         open_paths = self.context.dungeon.get_adjacent_areas(self.context.player.position)
-        is_first_move = len(self.moves) == 0
         choices = self.context.ui.get_movement_choices(self.moves, open_paths)
-        chosen_direction = self.context.ui.get_choice(choices, is_first_move)
+        chosen_direction = self.context.ui.prompt_player_movement(choices, self.moves)
         self.moves.append(chosen_direction)
         self.context.player.position.apply_offset(chosen_direction)
