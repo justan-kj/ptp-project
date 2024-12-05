@@ -2,12 +2,8 @@ from dungeon_game.direction import Direction, Position
 from dungeon_game.maze_builder import MazeBuilder
 
 
-def check_path(area1, area2):
-    for direction in Direction:
-        if area1.exits[direction] and area1.exits[direction] == area2.exits[direction.opposite]:
-            return True
-    return False
-
+def check_path(area1, area2, direction):
+     return area1.exits[direction] and area1.exits[direction] == area2.exits[direction.opposite]
 
 class Dungeon:
     """The Dungeon class manages the structure and relationships of areas in the game map"""
@@ -35,7 +31,7 @@ class Dungeon:
             if new_row < 0 or new_row >= self.size[0] or new_col < 0 or new_col >= self.size[1]:
                 adjacent_areas[a_dir] = False
                 continue
-            if check_path(self.get_area(area_position), self.get_area(new_pos)):
+            if check_path(self.get_area(area_position), self.get_area(new_pos),a_dir):
                 adjacent_areas[a_dir] = self.get_area(new_pos)
             else:
                 adjacent_areas[a_dir] = False
