@@ -13,14 +13,7 @@ class Player:
         :param starting_position: 2-tuple representing initial player coordinates within the map, in the form (rows,cols)
         :param starting_hp: integer representing hit points of the player. starts with full (current=max) hp
         """
-
         self.position = starting_position
-        self.max_hp = starting_hp
-        self.current_hp = starting_hp
         self.inventory = Inventory()
 
-    def modify_hp(self, amount):
-        self.current_hp += amount
-        if self.current_hp > self.max_hp:
-            self.current_hp = self.max_hp
-        print(f"You now have {self.current_hp}/{self.max_hp} HP")
+
