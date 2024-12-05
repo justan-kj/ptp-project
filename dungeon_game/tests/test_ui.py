@@ -20,13 +20,14 @@ class TestUi(unittest.TestCase):
         ]
         pass
 
-    def testInit(self):
+    def test_init(self):
         """Checks that initialised values are as expected
         :return: None
         """
         self.assertEqual(self.ui.log, [])
 
-    def testUpdate(self):
+    @patch('builtins.print')
+    def test_update(self, mock_print):
         """Checks that messages are added to the log when update is called
         :return: None
         """
@@ -34,9 +35,13 @@ class TestUi(unittest.TestCase):
         self.ui.update("Test message 1")
         self.assertEqual(len(self.ui.log), 1)
         self.assertEqual(self.ui.log[0], "Test message 1")
+        mock_print.assert_called_with("Test message 1")
+        mock_print.reset_mock()
         self.ui.update("Test message 2")
         self.assertEqual(len(self.ui.log), 2)
         self.assertEqual(self.ui.log[1], "Test message 2")
+        mock_print.assert_called_with("Test message 2")
+        mock_print.reset_mock()
 
     def test_get_user_input(self):
         with patch('builtins.input', return_value=2):
