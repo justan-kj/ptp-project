@@ -12,14 +12,14 @@ def check_path(area1, area2):
 class Dungeon:
     """The Dungeon class manages the structure and relationships of areas in the game map"""
 
-    def __init__(self, size, player):
+    def __init__(self, size, context):
         """Initializes the dungeon.
         :param size: a 2-tuple of the form (rows, columns)
         :return: None
         """
         self.size = size
         rows, cols = size
-        self.areas = MazeBuilder(size, player).build_maze()
+        self.areas = MazeBuilder(size, context).build_maze()
         self.endpoint = Position(size[0] - 1, size[1] - 1, rows, cols)
 
     def get_area(self, position):

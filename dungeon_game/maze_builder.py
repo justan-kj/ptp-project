@@ -5,10 +5,10 @@ from dungeon_game.event import BlankEvent, TrapEvent, PuzzleEvent, RestEvent
 
 
 class MazeBuilder:
-    def __init__(self, size, player):
+    def __init__(self, size, context):
         self.rows, self.cols = size
         self.maze = None
-        self.player = player
+        self.player = context.player
 
     def build_maze(self):
         self.initialize_maze()

@@ -15,11 +15,12 @@ class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
      interacts with"""
 
-    def __init__(self):
+    def __init__(self,context):
         """Initializes the ui. Log contains all the messages that have been displayed thus far
         :return: None
         """
         self.log = []
+        self.context = context
 
     def update(self, message):
         """

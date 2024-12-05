@@ -10,23 +10,18 @@ def generate_seed():
     output = random.randint(0, 2 ** 32)
     return output
 
+class GameContext:
+    def __init__(self, seed=generate_seed()):
+        self.game = Game(self)
+        self.dungeon = Dungeon((5,5),self)
+        self.player = Player(self)
+        self.ui = UserInterface(self)
+
 
 class Game:
-    def __init__(self):
-        self.dungeon = None
-        self.player = None
-        self.seed = 0
-        self.ui = None
+    def __init__(self, context):
         self.moves = []
-        self.initialize()
-
-    def initialize(self):
-        size = (5, 5)
-        self.seed = generate_seed()
-        starting_pos = Position(0, 0, size[0], size[1])
-        self.player = Player(starting_pos)
-        self.dungeon = Dungeon(size, self.player)
-        self.ui = UserInterface()
+        self.context = context
 
     def start(self):
         self.ui.update(
