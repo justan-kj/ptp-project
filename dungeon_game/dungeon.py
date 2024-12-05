@@ -3,7 +3,17 @@ from dungeon_game.maze_builder import MazeBuilder
 
 
 def check_path(area1, area2, direction):
-     return area1.exits[direction] and area1.exits[direction] == area2.exits[direction.opposite]
+    """
+    Checks that 2 areas have the linked exits. Exits are considered linked if an open directional exit in area1 has
+    the corresponding opposite direction exit open in area 2. Area1 and area2 are assumed to be adjacent and
+    the direction is assumed to reflect their adjacency.
+
+    :param area1: an Area
+    :param area2: an adjacent Area to the first
+    :param direction: a direction going from area1 towards area2
+    :return: bool indicating if the 2 areas have linked exits in the given direction
+    """
+    return area1.exits[direction] and area1.exits[direction] == area2.exits[direction.opposite]
 
 class Dungeon:
     """The Dungeon class manages the structure and relationships of areas in the game map"""
@@ -19,11 +29,17 @@ class Dungeon:
         self.endpoint = Position(size[0] - 1, size[1] - 1, rows, cols)
 
     def get_area(self, position):
-        """get_area returns an area from self.areas based on its row and column."""
+        """Gets a dungeon area from its position   .
+        :param position: the Position of the area to be returned
+        :return: Area of the dungeon
+        """
         return self.areas[position.row][position.col]
 
     def get_adjacent_areas(self, area_position):
-        """get_adjacent_areas returns the adjacent areas of a target area contained in self.areas. the target area is identified by its row and column."""
+        """Gets areas in self.area that are adjacent to the target area and have linked exits.
+            :param area_position: the Position of the area whose adjacent areas need finding
+            :return: array of adjacent areas with linked exits
+        """
         adjacent_areas = {}
         for a_dir in Direction:
             new_pos = area_position.apply_offset(a_dir, False)
