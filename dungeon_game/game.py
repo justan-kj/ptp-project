@@ -11,12 +11,14 @@ def generate_seed():
     return output
 
 class GameContext:
+
     def __init__(self):
         self.seed = 0
         self.game = None
         self.dungeon = None
         self.player = None
         self.ui = None
+        self.initialize()
 
     def initialize(self,seed=generate_seed()):
         self.seed = seed
@@ -53,6 +55,4 @@ class Game:
         choices = self.context.ui.get_movement_choices(self.moves, open_paths)
         chosen_direction = self.context.ui.get_choice(choices, is_first_move)
         self.moves.append(chosen_direction)
-        event = self.context.dungeon.get_area(self.context.player.position).exits[chosen_direction]
-        event.activate()
         self.context.player.position.apply_offset(chosen_direction)

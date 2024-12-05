@@ -1,7 +1,6 @@
 from dungeon_game.area import Area
 import random
 from dungeon_game.direction import Direction, Position
-from dungeon_game.event import BlankEvent, TrapEvent, PuzzleEvent, RestEvent
 
 
 class MazeBuilder:
@@ -15,16 +14,10 @@ class MazeBuilder:
         self.generate_maze_path()
         return self.maze
 
-    def generate_event(self):
-        events = [BlankEvent, TrapEvent, RestEvent, PuzzleEvent]
-        weights = [20, 10, 10, 10]
-        picked_class = random.choices(events, weights=weights, k=1)[0]
-        return picked_class(self.player)
 
     def link_areas(self, area1, area2, direction):
-        new_event = self.generate_event()
-        area1.exits[direction] = new_event
-        area2.exits[direction.opposite] = new_event
+        area1.exits[direction] = True
+        area2.exits[direction.opposite] = True
         return area2
 
     def initialize_maze(self):
