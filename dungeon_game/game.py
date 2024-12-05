@@ -2,6 +2,7 @@ import random
 
 from dungeon_game.direction import Position
 from dungeon_game.dungeon import Dungeon
+from dungeon_game.inventory import Item
 from dungeon_game.player import Player
 from dungeon_game.ui import UserInterface, Choice
 
@@ -47,7 +48,10 @@ class Game:
     Manages game flow, such as start, end and player movement.
     """
     def __init__(self, context):
-
+        """
+        Initializes the game with ab empty record of moves taken and the game state.
+        :return: None
+        """
         self.moves = []
         self.context = context
 
@@ -59,11 +63,36 @@ class Game:
         """
         self.context.ui.update("You, an intrepid adventurer, arrive in the dungeon, embarking in search of great treasures.")
         self.context.ui.update("Legends tell of three fantastical treasures scattered throughout the dungeon, collect them all to claim victory.")
-        while True:
+        treasures = self.assign_items()
+        while not self.check_victory(treasures):
             self.move_player()
-            if self.context.player.position.equals(self.context.dungeon.endpoint):
-                self.end_game()
-                break
+        self.end_game()
+
+    def assign_items(self):
+        """
+        Creates and assigns items to areas. Currently set to the 3 non-starting corners. Player wins the game by collecting all 3.
+        :return: array of Items that were assigned to areas
+        """
+        dungeon_areas = self.context.dungeon.areas
+        max_row,max_col = len(dungeon_areas) - 1, len(dungeon_areas[0]) - 1
+        item1 = Item("QuickestSort Algorithm", "Sorts an array in O(-1) time.")
+        dungeon_areas[0][max_col].add_item(item1)
+        item2 = Item("Orange Apple", "Quite comparable to both.")
+        dungeon_areas[max_row][0].add_item(item2)
+        item3 = Item("Free Lunch", "Turns out there is such a thing after all.")
+        dungeon_areas[max_row][max_col].add_item(item3)
+        return [item1, item2, item3]
+
+    def check_victory(self, items_to_check):
+        """
+        Checks if all the required items are in the player's inventory.
+        :param items_to_check: array of Items to check
+        :return: boolean indicating if all items are present in the player's inventory'
+        """
+        for item in items_to_check:
+            if not item in self.context.player.inventory:
+                return False
+        return True
 
     def end_game(self, victory=True):
         """
