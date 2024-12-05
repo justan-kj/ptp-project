@@ -71,3 +71,19 @@ class Area:
         :return: A character from `char_map` showing the exits.
         """
         return  get_symbol(self.exits)
+
+    def add_item(self,item):
+        """
+        Adds an item to the area.
+        :param item: The item to add.
+        :return: None
+        """
+        self.items.append(item)
+
+    def remove_item(self,item):
+        """
+        Removes an item from the area.
+        :param item: The item to remove.
+        :return: None
+        """
+        self.items.remove(item)
