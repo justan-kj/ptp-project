@@ -1,9 +1,9 @@
-from dungeon_game.game import Game
+from dungeon_game.game import GameContext
 
 
 def main():
-    new_game = Game()
-    new_game.start()
+    new_game_state = GameContext()
+    new_game_state.game.start()
 
 
 if __name__ == '__main__':
