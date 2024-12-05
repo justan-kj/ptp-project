@@ -2,16 +2,19 @@ class Choice:
     """
     The Choice class is a simple container containing a string as a text prompt and a value representing the outcome of the choice
     """
-    def __init__(self, prompt,value):
+
+    def __init__(self, prompt, value):
         self.prompt = prompt
         self.value = value
 
     def __repr__(self):
         return self.prompt
 
+
 class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
      interacts with"""
+
     def __init__(self):
         """Initializes the ui. Log contains all the messages that have been displayed thus far
         :return: None
@@ -39,7 +42,7 @@ class UserInterface:
         self.display_choices(choices)
         return self.get_player_input(choices)
 
-    def get_flavor_text(self,choices, is_first_move):
+    def get_flavor_text(self, choices, is_first_move):
         first_move_modifier = 0
         if is_first_move:
             first_move_modifier = 1
@@ -72,7 +75,3 @@ class UserInterface:
             print(f"{choice_num}) {choice.prompt}")
             self.log.append(choice.prompt)
             choice_num += 1
-
-
-
-

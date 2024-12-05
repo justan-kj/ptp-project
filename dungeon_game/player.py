@@ -5,6 +5,7 @@ class Player:
     """
     The Player class represents the entity controlled by the player. It stores the state of the player such as hp, position and name.
     """
+
     def __init__(self, name, starting_position, starting_hp=100):
         """
         Initialises the player.
@@ -18,10 +19,8 @@ class Player:
         self.current_hp = starting_hp
         self.inventory = Inventory()
 
-    def modify_hp(self,amount):
+    def modify_hp(self, amount):
         self.current_hp += amount
         if self.current_hp > self.max_hp:
             self.current_hp = self.max_hp
         print(f"You now have {self.current_hp}/{self.max_hp} HP")
-
-

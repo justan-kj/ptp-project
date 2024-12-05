@@ -16,8 +16,8 @@ class MazeBuilder:
         return self.maze
 
     def generate_event(self):
-        events = [BlankEvent,TrapEvent, RestEvent, PuzzleEvent]
-        weights = [20,10,10,10]
+        events = [BlankEvent, TrapEvent, RestEvent, PuzzleEvent]
+        weights = [20, 10, 10, 10]
         picked_class = random.choices(events, weights=weights, k=1)[0]
         return picked_class(self.player)
 
@@ -32,7 +32,7 @@ class MazeBuilder:
         for row in range(self.rows):
             new_row = []
             for col in range(self.cols):
-                new_row.append(Area(Position(row,col,self.rows,self.cols)))
+                new_row.append(Area(Position(row, col, self.rows, self.cols)))
             new_maze.append(new_row)
         self.maze = new_maze
         return new_maze
@@ -43,12 +43,12 @@ class MazeBuilder:
         passages = []
         kruskal_sets = []
 
-        for row_id,row in enumerate(self.maze):
-            for col_id,ele in enumerate(row):
+        for row_id, row in enumerate(self.maze):
+            for col_id, ele in enumerate(row):
                 if col_id < cols - 1:
-                    passages.append([self.maze[row_id][col_id], self.maze[row_id][col_id +1], Direction.EAST])
+                    passages.append([self.maze[row_id][col_id], self.maze[row_id][col_id + 1], Direction.EAST])
                 if row_id < rows - 1:
-                    passages.append([self.maze[row_id][col_id], self.maze[row_id+1][col_id], Direction.SOUTH])
+                    passages.append([self.maze[row_id][col_id], self.maze[row_id + 1][col_id], Direction.SOUTH])
 
         random.shuffle(passages)
 
@@ -67,7 +67,7 @@ class MazeBuilder:
                 continue
             self.link_areas(current_passage[0], current_passage[1], current_passage[2])
             if set1 is None and set2 is None:
-                kruskal_sets.append({current_passage[0],current_passage[1]})
+                kruskal_sets.append({current_passage[0], current_passage[1]})
 
                 continue
 
@@ -85,8 +85,3 @@ class MazeBuilder:
                 kruskal_sets.remove(set2)
                 kruskal_sets.append(new_set)
         return self.maze
-
-
-
-
-

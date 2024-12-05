@@ -4,6 +4,7 @@ from dungeon_game.area import Area
 from dungeon_game.direction import Position, Direction
 from dungeon_game.maze_builder import MazeBuilder
 
+
 class TestMazeBuilder(unittest.TestCase):
     def setUp(self):
         self.size = (4, 4)
@@ -28,4 +29,3 @@ class TestMazeBuilder(unittest.TestCase):
         self.builder.link_areas(area1, area2, Direction.EAST)
         self.assertTrue(area1.exits[Direction.EAST])
         self.assertTrue(area2.exits[Direction.WEST])
-

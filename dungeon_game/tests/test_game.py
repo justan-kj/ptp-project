@@ -22,6 +22,7 @@ class TestGame(unittest.TestCase):
         self.assertIsInstance(self.game.dungeon, Dungeon)
         self.assertIsInstance(self.game.seed, int)
 
+
 """Checks that messages are added to the log when game start is called
         :return: None
         """

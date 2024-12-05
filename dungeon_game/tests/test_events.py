@@ -1,6 +1,7 @@
 import unittest
 from dungeon_game.event import BlankEvent
-from dungeon_game.direction import Direction,Position
+from dungeon_game.direction import Direction, Position
+
 
 class TestBlankEvent(unittest.TestCase):
     def setUp(self):
@@ -19,5 +20,3 @@ class TestBlankEvent(unittest.TestCase):
 
     def test_activate(self):
         self.assertEqual(self.event.activate(), "Nothing eventful happens along the way.")
-
-

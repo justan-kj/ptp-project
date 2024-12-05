@@ -9,7 +9,7 @@ class TestPosition(unittest.TestCase):
         """Sets up a test player named Chuck Tester using defaults for other params
         :return: None
         """
-        self.position = Position(3,4)
+        self.position = Position(3, 4)
 
     def test_init(self):
         """Checks that initialised values are as expected
@@ -43,15 +43,16 @@ class TestPosition(unittest.TestCase):
 
     def test_equals(self):
         pos1 = self.position
-        pos2 = Position(3,4)
+        pos2 = Position(3, 4)
         pos3 = Position(4, 4)
         self.assertTrue(pos1.equals(pos2))
         self.assertFalse(pos1.equals(pos3))
         self.assertFalse(pos2.equals(pos3))
 
+
 class TestDirection(unittest.TestCase):
     def test_offset(self):
-        self.assertEqual(Direction.NORTH.offset, (-1,0))
+        self.assertEqual(Direction.NORTH.offset, (-1, 0))
         self.assertEqual(Direction.SOUTH.offset, (1, 0))
         self.assertEqual(Direction.EAST.offset, (0, 1))
         self.assertEqual(Direction.WEST.offset, (0, -1))

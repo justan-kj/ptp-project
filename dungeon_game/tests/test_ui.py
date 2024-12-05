@@ -4,6 +4,7 @@ from dungeon_game.direction import Direction
 from dungeon_game.ui import UserInterface, Choice
 from unittest.mock import patch
 
+
 class TestUi(unittest.TestCase):
     def setUp(self):
         """Sets up a test ui
@@ -11,7 +12,7 @@ class TestUi(unittest.TestCase):
         """
         self.ui = UserInterface()
         self.choices = [
-            Choice("Head North",Direction.NORTH),
+            Choice("Head North", Direction.NORTH),
             Choice("Head South", Direction.SOUTH),
             Choice("Go Back", Direction.WEST)
         ]
@@ -34,7 +35,6 @@ class TestUi(unittest.TestCase):
         self.ui.update("Test message 2")
         self.assertEqual(len(self.ui.log), 2)
         self.assertEqual(self.ui.log[1], "Test message 2")
-
 
     def test_get_user_input(self):
         with patch('builtins.input', return_value=2):

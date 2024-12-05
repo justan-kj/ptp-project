@@ -1,24 +1,25 @@
 from dungeon_game.direction import Direction
 
-#WNES
+# WNES
 char_map = {
-    "0000":" ",
-    "0001":"╷",
-    "0010":"╶",
-    "0011":"┌",
+    "0000": " ",
+    "0001": "╷",
+    "0010": "╶",
+    "0011": "┌",
     "0100": "╵",
-    "0101":"│",
-    "0110":"└",
+    "0101": "│",
+    "0110": "└",
     "0111": "├",
-    "1000":"╴",
-    "1001":"┐",
-    "1010":"─",
-    "1011":"┬",
-    "1100":"┘",
-    "1101":"┤",
-    "1110":"┴",
-    "1111":"┼"
+    "1000": "╴",
+    "1001": "┐",
+    "1010": "─",
+    "1011": "┬",
+    "1100": "┘",
+    "1101": "┤",
+    "1110": "┴",
+    "1111": "┼"
 }
+
 
 def get_symbol(exits):
     """
@@ -45,16 +46,17 @@ class Area:
     """The area class represents a single space in the dungeon.
 
      Each Area records its position in the dungeon and the exits in 4 cardinal directions."""
-    def __init__(self,position):
+
+    def __init__(self, position):
         """Initializes the area as a closed room.
         :param position: The Position of the area within the dungeon
         :return: None
         """
         self.exits = {
             Direction.NORTH: False,
-            Direction.SOUTH:False,
-            Direction.EAST:False,
-            Direction.WEST:False
+            Direction.SOUTH: False,
+            Direction.EAST: False,
+            Direction.WEST: False
         }
         self.row = position.row
         self.col = position.col
@@ -67,5 +69,3 @@ class Area:
         """
         code = get_symbol(self.exits)
         return char_map[code]
-
-
