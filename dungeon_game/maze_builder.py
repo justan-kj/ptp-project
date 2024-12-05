@@ -3,6 +3,12 @@ import random
 from dungeon_game.direction import Direction, Position
 
 
+def link_areas(area1, area2, direction):
+    area1.exits[direction] = True
+    area2.exits[direction.opposite] = True
+    return area2
+
+
 class MazeBuilder:
     def __init__(self, size, context):
         self.rows, self.cols = size
@@ -13,12 +19,6 @@ class MazeBuilder:
         self.initialize_maze()
         self.generate_maze_path()
         return self.maze
-
-
-    def link_areas(self, area1, area2, direction):
-        area1.exits[direction] = True
-        area2.exits[direction.opposite] = True
-        return area2
 
     def initialize_maze(self):
         new_maze = []
@@ -58,7 +58,7 @@ class MazeBuilder:
 
             if set1 == set2 and not set1 is None:
                 continue
-            self.link_areas(current_passage[0], current_passage[1], current_passage[2])
+            link_areas(current_passage[0], current_passage[1], current_passage[2])
             if set1 is None and set2 is None:
                 kruskal_sets.append({current_passage[0], current_passage[1]})
 
