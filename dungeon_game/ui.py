@@ -4,13 +4,9 @@ class Choice:
     """
     The Choice class is a simple container containing a string as a text prompt and a value representing the outcome of the choice
     """
-
     def __init__(self, prompt, value):
         self.prompt = prompt
         self.value = value
-
-    def __repr__(self):
-        return self.prompt
 
 class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
@@ -33,11 +29,19 @@ class UserInterface:
         print(message)
 
     def show_minimap(self):
+        """
+        Prints a string outline of the current area the player is in to aid navigation
+        :return: None
+        """
         player_pos = self.context.player.position
         area = self.context.dungeon.get_area(player_pos)
         Map([[area]]).display()
 
     def show_full_map(self):
+        """
+        Prints a string outline of all areas
+        :return: None
+        """
         Map(self.context.dungeon.areas).display()
 
     def prompt_player_movement(self, choices, moves):
@@ -58,6 +62,13 @@ class UserInterface:
 
 
     def get_movement_choices(self, moves, open_paths):
+        """
+        Generates choices for the player to take corresponding to all available exits for the room the player is in.
+        Uses previous moves to asssign the last move as the "go back" option for easier navigating
+        :param moves: The previous moves made by the player
+        :param open_paths: A dict of directions representing the exits and their open/closed (true/false) state
+        :return: the generated array of Choice objects
+        """
         choices = []
         back_direction = None
         for key in open_paths:
@@ -73,6 +84,12 @@ class UserInterface:
 
 
     def get_flavor_text(self, choices, moves):
+        """
+        Generates flavor text for the room exit layout based ont he number of choices (exits).
+        :param moves: The previous moves made by the player
+        :param choices: the array of choices available tot he player
+        :return: the appropriate flavor text
+        """
         first_move_modifier = 1
         if len(moves):
             first_move_modifier = 0
@@ -87,6 +104,12 @@ class UserInterface:
         return flavor_text
 
     def get_player_input(self, choices):
+        """
+        Attempts to get player input from the player until the player inputs a valid number corresponding to the index of a choice.
+        Also allows player to view the map.
+        :param choices: The array of choices available to the player
+        :return: the value of the selected choice, expecting a Direction
+        """
         while True:
             try:
                 chosen_num = int(input("Select a choice: ")) - 1
@@ -105,6 +128,11 @@ class UserInterface:
                 print("Invalid choice, please select a number.")
 
     def display_choices(self, choices):
+        """
+        Displays an array of choices ina  sequential manner
+        :param choices: The array of choices available to the player1
+        :return: None
+        """
         choice_num = 1
         for choice in choices:
             print(f"{choice_num}) {choice.prompt}")

@@ -10,7 +10,6 @@ class Player:
         """
         Initialises the player.
         :param starting_position: 2-tuple representing initial player coordinates within the map, in the form (rows,cols)
-        :param starting_hp: integer representing hit points of the player. starts with full (current=max) hp
         """
         self.position = starting_position
         self.inventory = Inventory()
