@@ -44,8 +44,8 @@ class Inventory:
         :param area: area to remove item from
         :return: None
         """
-        area.items.remove(item)
-        self.add_item(item)
+
+        self.add_item(area.items.pop())
 
 
 class Item:

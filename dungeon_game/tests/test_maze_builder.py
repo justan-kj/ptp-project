@@ -10,7 +10,7 @@ class TestMazeBuilder(unittest.TestCase):
     def setUp(self):
         self.context = GameContext()
         self.size = (12,34)
-        self.builder = MazeBuilder(self.size,self.context)
+        self.builder = MazeBuilder(self.size)
 
     def test_init(self):
         self.assertEqual(self.builder.rows, self.size[0])

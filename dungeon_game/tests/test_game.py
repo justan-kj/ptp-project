@@ -10,7 +10,6 @@ class TestGame(unittest.TestCase):
         """Sets up a test game instance
         :return: None
         """
-        self.game = Game("Tester")
         pass
 
     def testInit(self):

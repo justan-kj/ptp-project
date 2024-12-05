@@ -33,11 +33,23 @@ class GameContext:
     def initialize(self,seed=generate_seed()):
         """
         Initializes the game state.
-
         """
         random.seed(seed)
         self.game = Game(self)
-        self.dungeon = Dungeon((5,5),self)
+        difficulty  = input("Welcome to Adventure World! Please Choose a difficulty \n1) [Easy] \n2) Medium \n3) Hard\nSelection:")
+        if difficulty.isnumeric() and 1 <= int(difficulty) <= 3:
+            size = (1+2*int(difficulty),1+2*int(difficulty))
+            if difficulty == "1":
+                print("Easy selected")
+            elif difficulty == "2":
+                print("Medium selected")
+            else:
+                print("Hard selected")
+        else:
+            size = (3,3)
+            print("Easy selected")
+
+        self.dungeon = Dungeon(size)
         self.player = Player(Position(0,0))
         self.ui = UserInterface(self)
 
@@ -90,7 +102,7 @@ class Game:
         :return: boolean indicating if all items are present in the player's inventory'
         """
         for item in items_to_check:
-            if not item in self.context.player.inventory:
+            if not item in self.context.player.inventory.items:
                 return False
         return True
 
@@ -100,12 +112,16 @@ class Game:
         :return: None
         """
         if victory:
-            print("Congratulations! You beat the game.")
-            new_game_check = input("Play again? Y/[N]")
-            if new_game_check.upper() == "Y":
-                self.context.initialize()
-                return
+            print("Congratulations! You have obtained all 3 treasures and have beat the game!")
             exit()
+
+    def check_if_item_found(self, area):
+        if area.items:
+            item = area.items[0]
+            self.context.player.inventory.pick_up_item(item,area)
+            print(f"You discovered a(n) {item.name} in the area and place it into your inventory.")
+            return True
+        return False
 
     def move_player(self):
         """
@@ -118,3 +134,4 @@ class Game:
         chosen_direction = self.context.ui.prompt_player_movement(choices, self.moves)
         self.moves.append(chosen_direction)
         self.context.player.position.apply_offset(chosen_direction)
+        self.check_if_item_found(self.context.dungeon.get_area(self.context.player.position))
