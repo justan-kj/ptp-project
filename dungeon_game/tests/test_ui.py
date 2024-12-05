@@ -1,6 +1,7 @@
 import unittest
 
 from dungeon_game.direction import Direction
+from dungeon_game.game import GameContext
 from dungeon_game.ui import UserInterface, Choice
 from unittest.mock import patch
 
@@ -10,7 +11,8 @@ class TestUi(unittest.TestCase):
         """Sets up a test ui
         :return: None
         """
-        self.ui = UserInterface()
+        self.context = GameContext()
+        self.ui = self.context.ui
         self.choices = [
             Choice("Head North", Direction.NORTH),
             Choice("Head South", Direction.SOUTH),

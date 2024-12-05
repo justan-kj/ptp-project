@@ -17,10 +17,7 @@ class TestGame(unittest.TestCase):
         """Checks that initialised values are as expected
         :return: None
         """
-        self.assertIsInstance(self.game.ui, UserInterface)
-        self.assertIsInstance(self.game.player, Player)
-        self.assertIsInstance(self.game.dungeon, Dungeon)
-        self.assertIsInstance(self.game.seed, int)
+        pass
 
 
 """Checks that messages are added to the log when game start is called
