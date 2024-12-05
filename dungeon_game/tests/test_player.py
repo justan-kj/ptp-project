@@ -9,7 +9,7 @@ class TestPlayer(unittest.TestCase):
         """Sets up a test player named Chuck Tester using defaults for other params
         :return: None
         """
-        self.player = Player("Chuck Tester", Position(0, 0))
+        self.player = Player(Position(0, 0))
 
     def test_init(self):
         """Checks that initialised values are as expected

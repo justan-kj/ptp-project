@@ -12,13 +12,13 @@ def generate_seed():
 
 
 class Game:
-    def __init__(self, name=None):
+    def __init__(self):
         self.dungeon = None
         self.player = None
         self.seed = 0
         self.ui = None
         self.moves = []
-        self.initialize(name)
+        self.initialize()
 
     def initialize(self):
         size = (5, 5)
