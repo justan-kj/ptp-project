@@ -41,7 +41,6 @@ class Game:
             print("Congratulations! You beat the game.")
             new_game_check = input("Play again? Y/[N]")
             if new_game_check.upper() == "Y":
-                cls()
                 self.initialize()
             exit()
 
