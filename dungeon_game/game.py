@@ -11,8 +11,14 @@ def generate_seed():
     return output
 
 class GameContext:
+    """
+    Represents the state of the game, holding the different components so they can easily be passed across classes.
+    """
 
     def __init__(self):
+        """
+        Actual initial values are handled by the initialize method.
+        """
         self.seed = 0
         self.game = None
         self.dungeon = None
@@ -21,6 +27,9 @@ class GameContext:
         self.initialize()
 
     def initialize(self,seed=generate_seed()):
+        """
+        Initializes the game state.
+        """
         self.seed = seed
         self.game = Game(self)
         self.dungeon = Dungeon((5,5),self)
