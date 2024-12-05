@@ -1,3 +1,4 @@
+from dungeon_game.inventory import Inventory
 
 
 class Player:
@@ -15,6 +16,7 @@ class Player:
         self.position = starting_position
         self.max_hp = starting_hp
         self.current_hp = starting_hp
+        self.inventory = Inventory()
 
     def modify_hp(self,amount):
         self.current_hp += amount
