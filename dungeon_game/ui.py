@@ -1,3 +1,5 @@
+from dungeon_game.map import Map
+
 class Choice:
     """
     The Choice class is a simple container containing a string as a text prompt and a value representing the outcome of the choice
@@ -9,7 +11,6 @@ class Choice:
 
     def __repr__(self):
         return self.prompt
-
 
 class UserInterface:
     """The UserInterface class stores and presents the text prompts the player
@@ -31,6 +32,14 @@ class UserInterface:
         self.log.append(message)
         print(message)
 
+    def show_minimap(self):
+        player_pos = self.context.player.position
+        area = self.context.dungeon.get_area(player_pos)
+        Map([[area]]).display()
+
+    def show_full_map(self):
+        Map(self.context.dungeon.areas).display()
+
     def prompt_player_movement(self, choices, moves):
         """
         Prints a list of choices sequentially and prompts a player to select one of them
@@ -38,6 +47,8 @@ class UserInterface:
         :param choices: The choices to be selected from
         :return: The value of the selected Choice
         """
+        self.show_minimap()
+        #
         flavor_text = self.get_flavor_text(choices, moves)
         print(flavor_text)
         self.display_choices(choices)
@@ -79,7 +90,12 @@ class UserInterface:
         while True:
             try:
                 chosen_num = int(input("Select a choice: ")) - 1
-                if 0 <= chosen_num < len(choices):
+
+                if 0 <= chosen_num <= len(choices):
+                    if chosen_num == len(choices):
+                        self.show_full_map()
+
+                        continue
                     choice = choices[chosen_num]
                     self.log.append(choice.prompt)
                     return choice.value
@@ -94,3 +110,4 @@ class UserInterface:
             print(f"{choice_num}) {choice.prompt}")
             self.log.append(choice.prompt)
             choice_num += 1
+        print(f"{choice_num}) {"View Map"}")
